@@ -9,4 +9,8 @@
   body {
     @apply font-poppins;
   }
+
+  .btn {
+    @apply bg-darkBlue text-white py-1.5 px-3 rounded-md;
+  }
 }
