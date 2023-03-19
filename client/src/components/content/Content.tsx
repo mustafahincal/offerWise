@@ -3,7 +3,11 @@ interface ContentProps {
 }
 
 const Content = ({ children }: ContentProps) => {
-  return <div className="bg-green-200 flex-1">{children}</div>;
+  return (
+    <div className="flex-1 bg-green-300 flex justify-center items-center">
+      {children}
+    </div>
+  );
 };
 
 export default Content;
