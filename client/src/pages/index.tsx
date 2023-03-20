@@ -1,9 +1,16 @@
+import ProductItem from "@/components/product/ProductItem";
+import { Product } from "@/types/product";
+import axios from "axios";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+interface HomeProps {
+  products: Product[];
+}
+
+export default function Home({ products }: HomeProps) {
   return (
     <>
       <Head>
@@ -12,9 +19,22 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="text-3xl text-red-500 font-bold underline">
-        Hello world!
+      <div className="bg-gray-200 w-full h-full px-24 py-14 grid grid-cols-10 gap-20">
+        {products.map((product: Product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
       </div>
     </>
   );
 }
+
+export const getServerSideProps = async (context: any) => {
+  const response = await axios.get("http://localhost:3000/api/products");
+  const products = response.data;
+
+  return {
+    props: {
+      products,
+    },
+  };
+};
