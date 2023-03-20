@@ -5,7 +5,7 @@ const Header = () => {
   const isLogged = false;
   const [visible, setVisible] = useState(false);
   return (
-    <div className=" h-16 flex justify-between items-center px-10 shadow-item bg-crimson text-white">
+    <div className=" h-16 flex flex-shrink-0 justify-between items-center px-10 shadow-item bg-crimson text-white">
       <Link href={"/"}>Logo</Link>
 
       {isLogged ? (
