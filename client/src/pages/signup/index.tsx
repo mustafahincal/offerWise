@@ -21,10 +21,10 @@ const Signup = () => {
     <div className="w-full">
       <div className="w-1/3 m-auto py-10 shadow-item bg-white">
         <div className="w-4/5 m-auto">
-          <h1 className="font-extrabold text-2xl mb-5 text-center">Sign Up</h1>
+          <h1 className="font-extrabold text-3xl mb-5 text-center">Sign Up</h1>
 
           <form onSubmit={handleSubmit}>
-            <div className="w-full flex  flex-col bg-darkBlue text-gray-100  px-14 py-14 text-base">
+            <div className="w-full flex  flex-col bg-black text-gray-100  px-14 py-14 text-base">
               <input
                 value={values.name}
                 onChange={handleChange}

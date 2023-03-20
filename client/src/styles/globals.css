@@ -11,6 +11,6 @@
   }
 
   .btn {
-    @apply bg-darkBlue text-white py-1.5 px-3 rounded-md;
+    @apply bg-black text-white py-1.5 px-4 rounded-md;
   }
 }

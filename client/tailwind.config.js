@@ -22,7 +22,7 @@ module.exports = {
         orange: "#F37878",
       },
       boxShadow: {
-        item: "1px 0px 10px 3px rgba(0, 0, 0, 0.1)",
+        item: "1px 0px 10px 5px rgba(0, 0, 0, 0.2)",
         item2: "0px 0px 2px 0.2px rgba(0,0,0,0.37)",
       },
       backgroundImage: {

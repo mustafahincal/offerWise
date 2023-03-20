@@ -4,9 +4,7 @@ interface ContentProps {
 
 const Content = ({ children }: ContentProps) => {
   return (
-    <div className="flex-1 bg-green-300 flex justify-center items-center">
-      {children}
-    </div>
+    <div className="flex-1 flex justify-center items-center">{children}</div>
   );
 };
 
