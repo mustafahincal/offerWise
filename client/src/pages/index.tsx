@@ -19,7 +19,7 @@ export default function Home({ products }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-gray-200 w-full h-full px-24 py-14 grid grid-cols-10 gap-20">
+      <div className="bg-gray-100 w-full h-full px-24 py-14 grid grid-cols-10 gap-20">
         {products.map((product: Product) => (
           <ProductItem key={product.id} product={product} />
         ))}
