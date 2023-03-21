@@ -101,7 +101,6 @@ export const getServerSideProps = async (context: any) => {
   const { id } = context.params;
   const response = await axios.get(`http://localhost:3000/api/products/${id}`);
   const product = response.data;
-  console.log(product);
   return {
     props: {
       product,
