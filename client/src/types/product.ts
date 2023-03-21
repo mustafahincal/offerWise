@@ -1,7 +1,9 @@
 export interface Product {
   id: number;
   title: string;
-  currentOffer: number;
+  lastOffer: number;
+  minOffer: number;
   description: string;
   image: string;
+  lastOfferTime?: string;
 }
