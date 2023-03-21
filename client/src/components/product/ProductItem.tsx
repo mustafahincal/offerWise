@@ -8,10 +8,7 @@ interface ProductItemProps {
 const ProductItem = ({ product }: ProductItemProps) => {
   const router = useRouter();
   return (
-    <div
-      className="bg-white shadow-item col-span-2 inline-block h-[400px] cursor-pointer rounded-lg flex flex-col"
-      onClick={() => router.push(`/product/${product.id}`)}
-    >
+    <div className="bg-white shadow-item col-span-2 h-[450px]  rounded-lg flex flex-col">
       <div className="w-full h-60 relative flex-shrink-0">
         <Image
           src={product.image}
@@ -23,10 +20,29 @@ const ProductItem = ({ product }: ProductItemProps) => {
           sizes="100%"
         />
       </div>
-      <div className="flex flex-1 flex-col items-center justify-between py-5">
-        <div>{product.title}</div>
-        <div>Current Offer {product.currentOffer}</div>
-        <button className="btn bg-crimson">Make Offer</button>
+      <div className="flex flex-1 flex-col items-center justify-between py-4 gap-1">
+        <div className="w-full flex justify-between  px-3">
+          <div>Title</div>
+          <div>{product.title}</div>
+        </div>
+        <div className="w-full flex justify-between  px-3">
+          <div>Description</div>
+          <div>some desc</div>
+        </div>
+        <div className="w-full flex justify-between  px-3">
+          <div>Minimum Offer</div>
+          <div>{product.minOffer}</div>
+        </div>
+        <div className="w-full flex justify-between  px-3">
+          <div>Last Offer</div>
+          <div>{product.lastOffer}</div>
+        </div>
+        <button
+          className="btn mt-3 bg-crimson"
+          onClick={() => router.push(`/product/${product.id}`)}
+        >
+          Make Offer
+        </button>
       </div>
     </div>
   );
