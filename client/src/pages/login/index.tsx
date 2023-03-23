@@ -61,7 +61,7 @@ const Login = () => {
               type="submit"
               className="mt-5 border-2 border-darkBlue text-darkBlue bg-white  w-full py-2 text-center text-base hover:bg-black hover:text-white transition-all duration-200 rounded"
             >
-              Hesabın yok mu? Kayıt Ol!
+              Don't you have an account? Sign Up!
             </Link>
             <div className="text-right mt-5">
               <button type="submit" className={`btn text-base py-2 `}>
