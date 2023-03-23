@@ -22,7 +22,7 @@ const Product = ({ product }: ProductProps) => {
 
   return (
     <div className=" mx-auto w-full h-full  px-24 py-14 flex flex-row justify-center gap-36">
-      <div className="shadow-item w-1/3 text-left px-8 py-7 rounded-t-md">
+      <div className="shadow-item w-1/3 text-left px-8 py-7 rounded-md">
         <div className="w-full h-full flex flex-col rounded-t-md">
           <h1 className="font-extrabold text-2xl mb-5">Product Info</h1>
           <div className="w-full h-1/2 relative flex-shrink-0">
@@ -31,7 +31,6 @@ const Product = ({ product }: ProductProps) => {
               alt=""
               fill
               object-fit="cover"
-              className="rounded-t-lg"
               priority
               sizes="100%"
             />
@@ -60,10 +59,10 @@ const Product = ({ product }: ProductProps) => {
           </div>
         </div>
       </div>
-      <div className="shadow-item w-1/3 self-start text-right px-8 py-7 rounded-t-md">
+      <div className="shadow-item w-1/3 self-start text-right px-8 py-7 rounded-md">
         <h1 className="font-extrabold text-2xl  mb-5">Offer</h1>
 
-        <div className="px-5 py-5 bg-red-500 bg-opacity-60 text-lg text-white  text-center mb-5 ">
+        <div className="px-5 py-5 bg-crimson  text-lg text-white  text-center mb-5 ">
           Bu ürüne 500₺ teklif verdiniz.
         </div>
 

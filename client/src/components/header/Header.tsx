@@ -5,7 +5,7 @@ const Header = () => {
   const isLogged = false;
   const [visible, setVisible] = useState(false);
   return (
-    <div className=" h-16 flex flex-shrink-0 justify-between items-center px-14 shadow-item bg-crimson text-white">
+    <div className="h-16 flex flex-shrink-0 justify-between items-center px-14 shadow-item bg-black text-white">
       <Link href={"/"}>Logo</Link>
 
       {isLogged ? (
@@ -68,23 +68,23 @@ const Header = () => {
               className="border-b-2 border-red-400 cursor-pointer text-base py-2 px-2 items-center rounded  text-red-500  hover:bg-red-500 hover:text-white "
               // onClick={() => handleLogOut()}
             >
-              Çıkış Yap
+              Sign Out
             </span>
           </div>
         </div>
       ) : (
         <div className="ml-10 flex items-center order-3">
           <Link
-            className={"btn  bg-black shadow-item text-white mr-5 text-base"}
+            className={"btn bg-crimson shadow-item text-white mr-5 text-base"}
             href={"/login"}
           >
             Login
           </Link>
           <Link
-            className={"btn bg-black shadow-item text-white text-base"}
+            className={"btn bg-crimson shadow-item text-white text-base"}
             href={"/signup"}
           >
-            Signup
+            Sign Up
           </Link>
         </div>
       )}
