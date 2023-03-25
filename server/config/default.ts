@@ -1,4 +1,5 @@
 export default {
-    port : 1337,
-    dbUri : "mongodb://localhost:27017/kartaca"
-}
+  port: 1337,
+  dbUri: "mongodb://localhost:27017/kartaca",
+  saltWorkFactor: 10,
+};
