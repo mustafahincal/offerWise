@@ -8,6 +8,11 @@ export interface UserInput {
   password: string;
 }
 
+export interface UserLoginInput {
+  email: string;
+  password: string;
+}
+
 export interface UserDocument extends UserInput, mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
