@@ -1,6 +1,6 @@
 export const products = [
   {
-    id: 1,
+    id: "1",
     title: "Lorem Ipsum Dolor Sit Amet",
     lastOffer: 300,
     minOffer: 100,
@@ -10,7 +10,7 @@ export const products = [
     image: "https://picsum.photos/300/200?random=1",
   },
   {
-    id: 2,
+    id: "2",
     title: "Sed Tempus Est Velit",
     lastOffer: 400,
     minOffer: 300,
@@ -20,7 +20,7 @@ export const products = [
     image: "https://picsum.photos/300/200?random=2",
   },
   {
-    id: 3,
+    id: "3",
     title: "Cras Ut Sagittis Nisi",
     lastOffer: 500,
     minOffer: 200,

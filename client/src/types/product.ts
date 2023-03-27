@@ -1,5 +1,6 @@
 export interface Product {
-  id: number;
+  id: string;
+  userId?: string | null;
   title: string;
   lastOffer: number;
   minOffer: number;
