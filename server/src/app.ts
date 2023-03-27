@@ -4,7 +4,6 @@ import connectDB from "./utils/connect";
 import logger from "./utils/logger";
 import dotenv from "dotenv";
 import cors from "cors";
-import { notFound, errorHandler } from "./middlewares/error.middleware";
 import { userRouter } from "./routers/user.router";
 import { productRouter } from "./routers/product.router";
 

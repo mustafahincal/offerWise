@@ -13,7 +13,6 @@ export const protect = async (
   next: NextFunction
 ) => {
   let token;
-
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -27,15 +26,20 @@ export const protect = async (
       if (user) {
         req.user = user;
       }
+
       next();
     } catch (error) {
       res.status(401);
-      throw new Error("Not authorized, token failed");
+      res.send({
+        message: "Not authorized, token failed",
+      });
     }
   }
 
   if (!token) {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    res.send({
+      message: "Not authorized, no token",
+    });
   }
 };
