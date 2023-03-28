@@ -1,3 +1,4 @@
+import { User } from "@/types/user";
 export type RegisterRequest = {
   email: string;
   name: string;
