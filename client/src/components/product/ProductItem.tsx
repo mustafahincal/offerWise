@@ -10,14 +10,10 @@ const ProductItem = ({ product }: ProductItemProps) => {
   return (
     <div className="bg-white shadow-item col-span-3 h-[450px]  rounded-lg flex flex-col">
       <div className="w-full h-60 relative flex-shrink-0">
-        <Image
-          src={product.image}
+        <img
+          src={`http://localhost:4000${product.image}`}
           alt=""
-          fill
-          object-fit="cover"
-          className="rounded-t-lg"
-          priority
-          sizes="100%"
+          className="rounded-t-lg h-full w-full object-cover"
         />
       </div>
       <div className="flex flex-1 flex-col items-center justify-between py-4 gap-1">
@@ -30,16 +26,16 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <div>some desc</div>
         </div>
         <div className="w-full flex justify-between  px-3">
-          <div>Minimum Offer</div>
-          <div>{product.minOffer}</div>
+          <div>Start Price</div>
+          <div>{product.startPrice}</div>
         </div>
         <div className="w-full flex justify-between  px-3">
           <div>Last Offer</div>
-          <div>{product.lastOffer}</div>
+          <div>{product.lastOffer ? 0 : "-"}</div>
         </div>
         <button
           className="btn mt-3 bg-crimson"
-          onClick={() => router.push(`/product/${product.id}`)}
+          onClick={() => router.push(`/product/${product._id}`)}
         >
           Make Offer
         </button>

@@ -1,16 +1,19 @@
 import ProductItem from "@/components/product/ProductItem";
 import { Product } from "@/types/product";
-import axios from "axios";
 import { Inter } from "next/font/google";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { getAllProducts } from "../api/product";
 
 const inter = Inter({ subsets: ["latin"] });
 
-interface HomeProps {
-  products: Product[];
-}
-
-export default function Home({ products }: HomeProps) {
+export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    getAllProducts()
+      .then((response) => setProducts(response.data.products))
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <>
       <Head>
@@ -21,20 +24,9 @@ export default function Home({ products }: HomeProps) {
       </Head>
       <div className="bg-gray-100 w-full h-full px-24 py-14 grid grid-cols-12 gap-20">
         {products.map((product: Product) => (
-          <ProductItem key={product.id} product={product} />
+          <ProductItem key={product._id} product={product} />
         ))}
       </div>
     </>
   );
 }
-
-export const getServerSideProps = async (context: any) => {
-  const response = await axios.get("http://localhost:3000/api/products");
-  const products = response.data;
-
-  return {
-    props: {
-      products,
-    },
-  };
-};

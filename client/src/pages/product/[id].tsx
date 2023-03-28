@@ -1,3 +1,4 @@
+import { makeOffer } from "@/api/product";
 import { Product } from "@/types/product";
 import { offerSchema } from "@/validations/offerSchema";
 import axios from "axios";
@@ -12,17 +13,23 @@ const Product = ({ product }: ProductProps) => {
   const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
     useFormik({
       initialValues: {
-        offerPrice: "",
+        offerPrice: 0,
       },
       onSubmit: (values) => {
-        console.log(values);
+        makeOffer(product.id, values.offerPrice)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
       validationSchema: offerSchema,
     });
 
   return (
     <div className=" mx-auto w-full h-full  px-24 py-14 flex flex-row justify-center gap-36">
-      <div className="shadow-item w-1/3 text-left px-8 py-7 rounded-md">
+      <div className="shadow-item w-1/3 h-[700px] flex-shrink-0 text-left px-8 py-7 rounded-md">
         <div className="w-full h-full flex flex-col rounded-t-md">
           <h1 className="font-extrabold text-2xl mb-5">Product Info</h1>
           <div className="w-full h-1/2 relative flex-shrink-0">
@@ -62,7 +69,7 @@ const Product = ({ product }: ProductProps) => {
       <div className="shadow-item w-1/3 self-start text-right px-8 py-7 rounded-md">
         <h1 className="font-extrabold text-2xl  mb-5">Offer</h1>
 
-        <div className="px-5 py-5 bg-crimson  text-lg text-white  text-center mb-5 ">
+        <div className="px-5 py-3 bg-crimson  text-md text-white  text-center mb-5 ">
           Bu ürüne 500₺ teklif verdiniz.
         </div>
 

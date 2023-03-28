@@ -1,9 +1,9 @@
 export interface Product {
-  id: string;
+  _id: string;
   userId?: string | null;
   title: string;
   lastOffer: number;
-  minOffer: number;
+  startPrice: number;
   description: string;
   image: string;
   lastOfferTime?: string;
