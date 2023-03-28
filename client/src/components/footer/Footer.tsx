@@ -9,7 +9,9 @@ const Footer = () => {
         <p>Privacy Statement</p>
       </div>
       <div>
-        <p>© 2022 - 2023 LOGO</p>
+        <p>
+          © 2022 - 2023 <span className="ml-1 font-bold">Karaca</span>
+        </p>
       </div>
     </div>
   );
