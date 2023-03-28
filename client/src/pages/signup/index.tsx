@@ -1,18 +1,23 @@
+import { useAuthContext } from "@/contexts/Auth";
 import { registerSchema } from "@/validations/registerSchema";
 import { useFormik } from "formik";
 
 const Signup = () => {
+  const { register } = useAuthContext();
   const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
     useFormik({
       initialValues: {
         name: "",
-        surname: "",
         email: "",
         password: "",
         passwordConfirm: "",
       },
       onSubmit: (values) => {
-        console.log(values);
+        register({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
       },
       validationSchema: registerSchema,
     });
@@ -32,24 +37,10 @@ const Signup = () => {
                 name="name"
                 type="text"
                 className="text-darkBlue py-2 px-4 w-full"
-                placeholder="Ad"
+                placeholder="Name"
               />
               {errors.name && touched.name && (
                 <div className="text-red-400 my-2 text-sm">{errors.name}</div>
-              )}
-              <input
-                value={values.surname}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                name="surname"
-                type="text"
-                className="text-darkBlue py-2 px-4 w-full mt-5"
-                placeholder="Soyad"
-              />
-              {errors.surname && touched.surname && (
-                <div className="text-red-400 my-2 text-sm">
-                  {errors.surname}
-                </div>
               )}
               <div className="mt-5">
                 <input
@@ -75,7 +66,7 @@ const Signup = () => {
                   name="password"
                   type="password"
                   className="text-darkBlue py-2 px-4 w-full"
-                  placeholder="Parola"
+                  placeholder="Password"
                 />
                 {errors.password && touched.password && (
                   <div className="text-red-400 my-2 text-sm">
@@ -91,7 +82,7 @@ const Signup = () => {
                   name="passwordConfirm"
                   type="password"
                   className="text-darkBlue py-2 px-4 w-full"
-                  placeholder="Parolayı tekrar giriniz"
+                  placeholder="Confirm Password"
                 />
                 {errors.passwordConfirm && touched.passwordConfirm && (
                   <div className="text-red-400 my-2 text-sm">

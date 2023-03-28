@@ -1,8 +1,10 @@
+import { useAuthContext } from "@/contexts/Auth";
 import { loginSchema } from "@/validations/loginSchema";
 import { useFormik } from "formik";
 import Link from "next/link";
 
 const Login = () => {
+  const { login } = useAuthContext();
   const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
     useFormik({
       initialValues: {
@@ -10,7 +12,7 @@ const Login = () => {
         password: "",
       },
       onSubmit: (values) => {
-        console.log(values);
+        login(values);
       },
       validationSchema: loginSchema,
     });
@@ -47,7 +49,7 @@ const Login = () => {
                   name="password"
                   type="password"
                   className="text-darkBlue py-2 px-4 w-full"
-                  placeholder="Şifre"
+                  placeholder="Password"
                 />
                 {errors.password && touched.password && (
                   <div className="text-red-400 my-2 text-sm">

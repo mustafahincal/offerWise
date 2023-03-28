@@ -43,21 +43,19 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
     setLoading(true);
     fetchLogin(userForLogin)
       .then((response: any) => {
-        localStorage.setItem("token", response.token);
+        localStorage.setItem("token", response.data.token);
         localStorage.setItem(
           "userInfo",
           JSON.stringify({
-            _id: response.id,
-            name: response.name,
-            email: response.email,
-            image: response.image,
+            _id: response.data.id,
+            name: response.data.name,
+            email: response.data.email,
           })
         );
         setCurrentUser({
-          _id: response.id,
-          name: response.name,
-          email: response.email,
-          image: response.image,
+          _id: response.data.id,
+          name: response.data.name,
+          email: response.data.email,
         });
         setLogged(true);
         setLoading(false);
