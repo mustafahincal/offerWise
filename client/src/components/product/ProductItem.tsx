@@ -8,7 +8,7 @@ interface ProductItemProps {
 const ProductItem = ({ product }: ProductItemProps) => {
   const router = useRouter();
   return (
-    <div className="bg-white shadow-item col-span-2 h-[450px]  rounded-lg flex flex-col">
+    <div className="bg-white shadow-item col-span-3 h-[450px]  rounded-lg flex flex-col">
       <div className="w-full h-60 relative flex-shrink-0">
         <Image
           src={product.image}
