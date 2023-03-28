@@ -1,8 +1,39 @@
 import { AuthUserInput, CreateUserInput } from "./../schemas/user.schema";
 import { NextFunction, Request, Response } from "express";
 import { omit } from "lodash";
-import { authUser, createUser } from "../services/user.service";
+import {
+  authUser,
+  createUser,
+  getAllUsers,
+  getUser,
+} from "../services/user.service";
 import logger from "../utils/logger";
+
+export const getAllUsersHandler = async (req: Request, res: Response) => {
+  try {
+    const users = await getAllUsers();
+    if (users) {
+      res.send({ users, success: true });
+    } else {
+      throw new Error("Failed to Fetch Users");
+    }
+  } catch (e: any) {
+    res.status(400).send({ message: e.message, success: false });
+  }
+};
+
+export const getUserHandler = async (req: Request, res: Response) => {
+  try {
+    const user = await getUser(req.params.id);
+    if (user) {
+      res.send({ user, success: true });
+    } else {
+      throw new Error("Failed to Fetch User");
+    }
+  } catch (e: any) {
+    res.status(400).send({ message: e.message, success: false });
+  }
+};
 
 export const createUserHandler = async (
   req: Request<{}, {}, CreateUserInput["body"]>,
@@ -11,12 +42,12 @@ export const createUserHandler = async (
   try {
     const user = await createUser(req.body);
     if (user) {
-      res.send(user);
+      res.send({ user, success: true });
     } else {
       throw new Error("Failed to Create a New User");
     }
   } catch (e: any) {
-    res.status(400).send({ message: e.message });
+    res.status(400).send({ message: e.message, success: false });
   }
 };
 
@@ -27,12 +58,12 @@ export const authUserHandler = async (
   try {
     const user = await authUser(req.body);
     if (user) {
-      res.send(user);
+      res.send({ user, success: true });
     } else {
       throw new Error("Failed to Auth the User");
     }
   } catch (e: any) {
     logger.error(e);
-    res.status(400).send({ message: e.message });
+    res.status(400).send({ message: e.message, success: false });
   }
 };

@@ -5,7 +5,7 @@ export interface ProductInput {
   user?: UserDocument["_id"];
   title: string;
   lastOffer?: number;
-  minOffer: number;
+  startPrice: number;
   lastOfferTime?: Date;
   description: string;
   image: string;
@@ -13,12 +13,12 @@ export interface ProductInput {
 
 export interface UpdateProductInput {
   user?: UserDocument["_id"];
-  title: string;
+  title?: string;
   lastOffer?: number;
-  minOffer: number;
+  startPrice?: number;
   lastOfferTime?: Date;
-  description: string;
-  image: string;
+  description?: string;
+  image?: string;
 }
 
 export interface ProductDocument extends ProductInput, mongoose.Document {
@@ -49,8 +49,9 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    minOffer: {
+    startPrice: {
       type: Number,
+      required: true,
     },
     lastOfferTime: {
       type: Date,

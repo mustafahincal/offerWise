@@ -6,6 +6,11 @@ import {
   updateProduct,
 } from "./../services/product.service";
 import { Request, Response } from "express";
+import { UserDocument } from "../models/user.model";
+
+interface ProductRequest extends Request {
+  user: UserDocument;
+}
 
 export const getAllProductsHandler = async (req: Request, res: Response) => {
   try {
@@ -13,11 +18,14 @@ export const getAllProductsHandler = async (req: Request, res: Response) => {
     if (products) {
       res.send({
         message: "Products Fetched Successfully",
+        success: true,
         products,
       });
     }
   } catch (e) {
-    res.status(400).send({ message: "Products Couldn't Fetched" });
+    res
+      .status(400)
+      .send({ message: "Products Couldn't Fetched", success: false });
   }
 };
 
@@ -27,11 +35,14 @@ export const getProductHandler = async (req: Request, res: Response) => {
     if (product) {
       res.send({
         message: "Product Fetched Successfully",
+        success: true,
         product,
       });
+    } else {
+      throw new Error("Product Not Found");
     }
-  } catch (e) {
-    res.status(400).send({ message: "Product Couldn't Fetched" });
+  } catch (e: any) {
+    res.status(400).send({ message: e.message, success: false });
   }
 };
 
@@ -41,25 +52,32 @@ export const createProductHandler = async (req: Request, res: Response) => {
     if (product) {
       res.send({
         message: "Product Created Successfully",
+        success: true,
         product,
       });
+    } else {
+      throw new Error("Product Couldn't Created");
     }
-  } catch (e) {
-    res.status(400).send({ message: "Product Couldn't Created" });
+  } catch (e: any) {
+    res.status(400).send({ message: e.message, success: false });
   }
 };
 
-export const updateProductHandler = async (req: Request, res: Response) => {
+export const updateProductHandler = async (
+  req: ProductRequest,
+  res: Response
+) => {
   try {
-    const product = await updateProduct(req.params.id, req.body);
+    const product = await updateProduct(req.user._id, req.params.id, req.body);
     if (product) {
       res.send({
         message: "Product Updated Successfully",
+        success: true,
         product,
       });
     }
-  } catch (e) {
-    res.status(400).send({ message: "Product Couldn't Updated" });
+  } catch (e: any) {
+    res.status(400).send({ success: false, error: e.message });
   }
 };
 
@@ -69,11 +87,12 @@ export const deleteProductHandler = async (req: Request, res: Response) => {
     if (deletedProduct) {
       res.send({
         message: "Product Deleted Successfully",
+        success: true,
       });
     } else {
       throw new Error("Product Couldn't Deleted");
     }
   } catch (e: any) {
-    res.status(400).send({ message: e.message });
+    res.status(400).send({ message: e.message, success: false });
   }
 };

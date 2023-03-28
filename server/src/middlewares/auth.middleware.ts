@@ -25,6 +25,8 @@ export const protect = async (
       const user = await User.findById(decoded.id).select("-password");
       if (user) {
         req.user = user;
+      } else {
+        throw new Error("User not found");
       }
 
       next();

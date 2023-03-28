@@ -17,9 +17,21 @@ export const getProduct = async (id: string) => {
   return await Product.findById(id);
 };
 
-export const updateProduct = async (id: string, input: UpdateProductInput) => {
+export const updateProduct = async (
+  userId: string,
+  id: string,
+  input: UpdateProductInput
+) => {
+  const product = await Product.findById(id);
+  if (!product) throw new Error("Product not found");
+
   if (input.lastOffer) {
+    if (input.lastOffer <= product.startPrice)
+      throw new Error("Offer must be higher than start price");
+    if (product.lastOffer && input.lastOffer <= product.lastOffer)
+      throw new Error("Offer must be higher than last offer");
     input.lastOfferTime = new Date();
+    input.user = userId;
   }
   return await Product.findByIdAndUpdate(id, input, { new: true });
 };
