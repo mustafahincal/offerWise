@@ -28,7 +28,7 @@ export const createUser = async (input: UserInput) => {
     const user = await User.create(input);
     return omit(user.toJSON(), "password");
   } catch (e: any) {
-    throw new Error(e);
+    throw new Error("User creation failed");
   }
 };
 

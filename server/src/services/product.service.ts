@@ -6,7 +6,7 @@ import Product, {
 } from "../models/product.model";
 
 export const getAllProducts = async () => {
-  return await Product.find();
+  return await Product.find().populate("user", "-password");
 };
 
 export const createProduct = async (input: ProductInput) => {
@@ -14,7 +14,7 @@ export const createProduct = async (input: ProductInput) => {
 };
 
 export const getProduct = async (id: string) => {
-  return await Product.findById(id);
+  return await Product.findById(id).populate("user", "-password");
 };
 
 export const updateProduct = async (
@@ -33,7 +33,10 @@ export const updateProduct = async (
     input.lastOfferTime = new Date();
     input.user = userId;
   }
-  return await Product.findByIdAndUpdate(id, input, { new: true });
+  return await Product.findByIdAndUpdate(id, input, { new: true }).populate(
+    "user",
+    "-password"
+  );
 };
 
 export const deleteProduct = async (id: string) => {

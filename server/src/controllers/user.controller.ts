@@ -42,7 +42,7 @@ export const createUserHandler = async (
   try {
     const user = await createUser(req.body);
     if (user) {
-      res.send({ user, success: true });
+      res.send({ success: true });
     } else {
       throw new Error("Failed to Create a New User");
     }
