@@ -30,8 +30,10 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
   const register = (userForRegister: RegisterRequest) => {
     fetchRegister(userForRegister)
       .then((response: any) => {
-        toast.success("Registration Successful");
-        router.push("/");
+        if (response.data.success) {
+          toast.success("Register Successsful");
+          router.push("/login");
+        }
       })
       .catch((err: any) => {
         console.log(err);
@@ -43,24 +45,29 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
     setLoading(true);
     fetchLogin(userForLogin)
       .then((response: any) => {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem(
-          "userInfo",
-          JSON.stringify({
-            _id: response.data.id,
-            name: response.data.name,
-            email: response.data.email,
-          })
-        );
-        setCurrentUser({
-          _id: response.data.id,
-          name: response.data.name,
-          email: response.data.email,
-        });
-        setLogged(true);
-        setLoading(false);
-        toast.success("Login Successsful");
-        router.push("/");
+        if (response.data.success) {
+          localStorage.setItem("token", response.data.user.token);
+          localStorage.setItem(
+            "userInfo",
+            JSON.stringify({
+              _id: response.data.user._id,
+              name: response.data.user.name,
+              email: response.data.user.email,
+            })
+          );
+          setCurrentUser({
+            _id: response.data.user._id,
+            name: response.data.user.name,
+            email: response.data.user.email,
+          });
+          setLogged(true);
+          setLoading(false);
+          toast.success("Login Successsful");
+          router.push("/");
+        } else {
+          toast.error(response.data.message);
+          setLoading(false);
+        }
       })
       .catch((err: any) => {
         toast.error(err.response.data.message);

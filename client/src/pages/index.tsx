@@ -3,6 +3,7 @@ import { Product } from "@/types/product";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getAllProducts } from "../api/product";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -11,8 +12,16 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     getAllProducts()
-      .then((response) => setProducts(response.data.products))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        if (response.data.success) {
+          setProducts(response.data.products);
+        } else {
+          toast.error(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   return (
     <>

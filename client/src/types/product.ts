@@ -1,6 +1,8 @@
+import { User } from "./user";
+
 export interface Product {
   _id: string;
-  userId?: string | null;
+  user?: User;
   title: string;
   lastOffer: number;
   startPrice: number;

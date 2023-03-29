@@ -1,7 +1,6 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import { AuthProvider } from "@/contexts/Auth";
-import Layout from "@/layouts/Layout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";

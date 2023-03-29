@@ -2,6 +2,7 @@ import { Product } from "@/types/product";
 import axios from "./axiosInstance";
 
 export const getAllProducts = () => axios.get("/products");
+export const getProduct = (id: string) => axios.get(`/products/${id}`);
 export const createProduct = (product: Product) =>
   axios.post("/products", product);
 export const makeOffer = (id: string, lastOffer: number) =>

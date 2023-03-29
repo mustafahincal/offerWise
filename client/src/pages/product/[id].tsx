@@ -1,28 +1,47 @@
-import { makeOffer } from "@/api/product";
+import { getProduct, makeOffer } from "@/api/product";
+import { useAuthContext } from "@/contexts/Auth";
 import { Product } from "@/types/product";
 import { offerSchema } from "@/validations/offerSchema";
 import axios from "axios";
 import { useFormik } from "formik";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-interface ProductProps {
-  product: Product;
-}
+const Product = () => {
+  const [product, setProduct] = useState<Product | null>(null);
+  const { currentUser } = useAuthContext();
+  const router = useRouter();
 
-const Product = ({ product }: ProductProps) => {
+  useEffect(() => {
+    getProduct(router.query.id as string)
+      .then((response) => {
+        if (response.data.success) {
+          setProduct(response.data.product);
+        } else {
+          toast.error(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
     useFormik({
       initialValues: {
         offerPrice: 0,
       },
       onSubmit: (values) => {
-        makeOffer(product.id, values.offerPrice)
+        /* makeOffer(product.id, values.offerPrice)
           .then((response) => {
             console.log(response);
           })
           .catch((error) => {
             console.log(error);
-          });
+          }); */
+        console.log(values);
       },
       validationSchema: offerSchema,
     });
@@ -33,35 +52,36 @@ const Product = ({ product }: ProductProps) => {
         <div className="w-full h-full flex flex-col rounded-t-md">
           <h1 className="font-extrabold text-2xl mb-5">Product Info</h1>
           <div className="w-full h-1/2 relative flex-shrink-0">
-            <Image
-              src={product.image}
+            <img
+              src={`http://localhost:4000${product?.image}`}
               alt=""
-              fill
-              object-fit="cover"
-              priority
-              sizes="100%"
+              className="rounded-t-lg h-full w-full object-cover"
             />
           </div>
           <div className="bg-black w-full flex-1  px-1 py-7  text-gray-100 flex flex-col gap-2 justify-between text-base">
             <div className="w-full flex justify-between  px-5">
               <div>Title</div>
-              <div>{product.title}</div>
+              <div>{product?.title}</div>
             </div>
             <div className="w-full flex justify-between  px-5">
               <div>Description</div>
               <div>test desc</div>
             </div>
             <div className="w-full flex justify-between  px-5">
-              <div>Minimum Offer</div>
-              <div>{product.minOffer}</div>
+              <div>Start Price</div>
+              <div>{product?.startPrice}</div>
+            </div>
+            <div className="w-full flex justify-between  px-5">
+              <div>Bidder</div>
+              <div>{product?.user?.name || "-"}</div>
             </div>
             <div className="w-full flex justify-between  px-5">
               <div>Last Offer</div>
-              <div>{product.lastOffer}</div>
+              <div>{product?.lastOffer || "-"}</div>
             </div>
             <div className="w-full flex justify-between  px-5">
-              <div>Last Offer Time</div>
-              <div>{product.lastOfferTime}</div>
+              <div>Time</div>
+              <div>{product?.lastOfferTime || "-"}</div>
             </div>
           </div>
         </div>
@@ -69,9 +89,11 @@ const Product = ({ product }: ProductProps) => {
       <div className="shadow-item w-1/3 self-start text-right px-8 py-7 rounded-md">
         <h1 className="font-extrabold text-2xl  mb-5">Offer</h1>
 
-        <div className="px-5 py-3 bg-crimson  text-md text-white  text-center mb-5 ">
-          Bu ürüne 500₺ teklif verdiniz.
-        </div>
+        {product?.user && product.user._id === currentUser?._id ? (
+          <div className="px-5 py-3 bg-crimson  text-md text-white  text-center mb-5 ">
+            Bu ürüne {product.lastOffer}₺ teklif verdiniz.
+          </div>
+        ) : null}
 
         <form onSubmit={handleSubmit}>
           <div className="w-full flex  flex-col bg-black text-gray-100  p-5">
@@ -101,17 +123,6 @@ const Product = ({ product }: ProductProps) => {
       </div>
     </div>
   );
-};
-
-export const getServerSideProps = async (context: any) => {
-  const { id } = context.params;
-  const response = await axios.get(`http://localhost:3000/api/products/${id}`);
-  const product = response.data;
-  return {
-    props: {
-      product,
-    },
-  };
 };
 
 export default Product;
