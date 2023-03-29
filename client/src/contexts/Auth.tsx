@@ -21,7 +21,6 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
     if (localStorage.getItem("token")) {
       setCurrentUser(JSON.parse(localStorage.getItem("userInfo") || "{}"));
       setLogged(true);
-      router.push("/");
     } else {
       router.push("/login");
     }

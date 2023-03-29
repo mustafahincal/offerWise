@@ -25,8 +25,8 @@ export const updateProduct = async (
   const product = await Product.findById(id);
   if (!product) throw new Error("Product not found");
 
-  if (input.lastOffer) {
-    if (input.lastOffer <= product.startPrice)
+  if (input.lastOffer || input.lastOffer == 0) {
+    if (input.lastOffer < product.startPrice || input.lastOffer == 0)
       throw new Error("Offer must be higher than start price");
     if (product.lastOffer && input.lastOffer <= product.lastOffer)
       throw new Error("Offer must be higher than last offer");

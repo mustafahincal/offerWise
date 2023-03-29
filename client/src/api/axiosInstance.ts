@@ -23,7 +23,7 @@ instance.interceptors.response.use(
       window.location.href = "/login";
     }
     try {
-      console.log(error?.response?.data?.message);
+      //console.log(error?.response?.data?.message);
     } catch (e) {
       console.log("Something went wrong.");
     }

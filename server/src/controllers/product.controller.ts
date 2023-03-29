@@ -77,7 +77,7 @@ export const updateProductHandler = async (
       });
     }
   } catch (e: any) {
-    res.status(400).send({ success: false, error: e.message });
+    res.send({ success: false, message: e.message });
   }
 };
 

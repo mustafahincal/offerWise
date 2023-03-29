@@ -15,18 +15,20 @@ const Product = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getProduct(router.query.id as string)
-      .then((response) => {
-        if (response.data.success) {
-          setProduct(response.data.product);
-        } else {
-          toast.error(response.data.message);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    if (router.query.id) {
+      getProduct(router.query.id as string)
+        .then((response) => {
+          if (response.data.success) {
+            setProduct(response.data.product);
+          } else {
+            toast.error(response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [router.query.id]);
 
   const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
     useFormik({
@@ -34,14 +36,23 @@ const Product = () => {
         offerPrice: 0,
       },
       onSubmit: (values) => {
-        /* makeOffer(product.id, values.offerPrice)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          }); */
-        console.log(values);
+        if (product) {
+          makeOffer(product._id, values.offerPrice)
+            .then((response) => {
+              if (response.data.success) {
+                toast.success("Offer Made Successfully");
+                setProduct(response.data.product);
+              } else {
+                toast.error(response.data.message);
+              }
+            })
+            .catch((error) => {
+              toast.error(error.message);
+            })
+            .finally(() => {
+              values.offerPrice = 0;
+            });
+        }
       },
       validationSchema: offerSchema,
     });
