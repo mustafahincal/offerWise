@@ -11,7 +11,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
     <div className="bg-white shadow-item col-span-3 h-[400px]   rounded-lg flex flex-col">
       <div className="w-full h-60 relative flex-shrink-0">
         <img
-          src={`http://localhost:4000${product.image}`}
+          src={`${process.env.NEXT_PUBLIC_ENDPOINT}${product.image}`}
           alt=""
           className="rounded-t-lg h-full w-full object-cover"
         />

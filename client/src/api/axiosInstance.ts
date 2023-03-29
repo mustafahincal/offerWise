@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = process.env.BASE_ENDPOINT;
+const apiURL = process.env.NEXT_PUBLIC_BASE_ENDPOINT;
 
 const instance = axios.create({
   baseURL: apiURL,

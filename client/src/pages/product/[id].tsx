@@ -94,12 +94,12 @@ const Product = () => {
           <h1 className="font-extrabold text-2xl mb-5">Product Info</h1>
           <div className="w-full h-1/2 relative flex-shrink-0">
             <img
-              src={`http://localhost:4000${product?.image}`}
+              src={`${process.env.NEXT_PUBLIC_ENDPOINT}${product?.image}`}
               alt=""
               className="rounded-t-lg h-full w-full object-cover"
             />
           </div>
-          <div className="bg-black w-full flex-1  px-1 py-7  text-gray-100 flex flex-col gap-2 justify-between text-base">
+          <div className="bg-black w-full flex-1 rounded-b-md px-1 py-7  text-gray-100 flex flex-col gap-2 justify-between text-base">
             <div className="w-full flex justify-between  px-5">
               <div>Title</div>
               <div>{product?.title}</div>
@@ -137,7 +137,7 @@ const Product = () => {
         ) : null}
 
         <form onSubmit={handleSubmit}>
-          <div className="w-full flex  flex-col bg-black text-gray-100  p-5">
+          <div className="w-full flex  flex-col rounded-md bg-black text-gray-100  p-5">
             <div className="flex justify-between items-center">
               <input
                 type="number"
