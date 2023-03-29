@@ -8,11 +8,34 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { io } from "socket.io-client";
+
+const ENDPOINT = process.env.ENDPOINT || "http://localhost:4000";
+let socket: any;
+socket = io(ENDPOINT);
 
 const Product = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const { currentUser } = useAuthContext();
   const router = useRouter();
+  const [socketConnected, setSocketConnected] = useState(false);
+
+  useEffect(() => {
+    socket.emit("setup", currentUser?._id);
+    socket.on("connected", () => setSocketConnected(true));
+  }, []);
+
+  useEffect(() => {
+    if (socketConnected) {
+      socket.emit("join-trade", product?._id);
+    }
+  }, [product]);
+
+  useEffect(() => {
+    socket.on("offer-received", (updatedProduct: Product) => {
+      setProduct(updatedProduct);
+    });
+  }, [socket]);
 
   useEffect(() => {
     if (router.query.id) {
@@ -41,7 +64,14 @@ const Product = () => {
             .then((response) => {
               if (response.data.success) {
                 toast.success("Offer Made Successfully");
-                setProduct(response.data.product);
+                //setProduct(response.data.product);
+
+                socket.emit("offer-made", {
+                  ...product,
+                  lastOffer: values.offerPrice,
+                  user: currentUser,
+                });
+                values.offerPrice = 0;
               } else {
                 toast.error(response.data.message);
               }

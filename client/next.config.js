@@ -5,7 +5,8 @@ const nextConfig = {
     domains: ["picsum.photos"],
   },
   env: {
-    BASE_ENDPOINT: process.env.BASE_ENDPOINT
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+    ENDPOINT: process.env.ENDPOINT,
   }
 };
 
