@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { User } from "@/types/user";
 import { LoginRequest, RegisterRequest } from "@/types/auth";
 import { fetchLogin, fetchRegister } from "@/api/auth";
+import axios from "axios";
 
 export const AuthContext = createContext<any>(null);
 
@@ -25,6 +26,22 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
       router.push("/login");
     }
   }, []);
+
+  /* const getUserToken = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/users/token");
+      if (response.data.success) {
+        const parsedTokenUser = JSON.parse(response.data.token);
+        setCurrentUser(parsedTokenUser.user);
+        setLogged(true);
+      } else {
+        console.log(response.data.message);
+        router.push("/login");
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }; */
 
   const register = (userForRegister: RegisterRequest) => {
     fetchRegister(userForRegister)

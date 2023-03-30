@@ -2,6 +2,7 @@ import { signJwt } from "./../utils/jwt";
 import { omit } from "lodash";
 import { Document } from "mongoose";
 import User, { UserInput, UserLoginInput } from "../models/user.model";
+import { redisHandler } from "../utils/redis";
 
 export const getAllUsers = async () => {
   try {
@@ -37,12 +38,35 @@ export const authUser = async (input: UserLoginInput) => {
   try {
     const user = await User.findOne({ email });
     if (user && (await user.comparePassword(password))) {
+      const token = signJwt(user._id);
+
+      await redisHandler(
+        "token-user",
+        JSON.stringify({
+          token,
+          user: {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+          },
+        })
+      );
+
       return {
         ...omit(user.toJSON(), "password"),
-        token: signJwt(user._id),
+        token,
       };
     }
   } catch (e: any) {
     throw new Error(e);
+  }
+};
+
+export const getUserToken = async () => {
+  try {
+    const token = await redisHandler("token-user");
+    return token;
+  } catch (e: any) {
+    throw new Error(e.message);
   }
 };
