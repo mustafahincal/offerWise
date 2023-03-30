@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import config from "config";
 
 export interface UserInput {
   email: string;
@@ -43,7 +42,7 @@ userSchema.pre("save", async function (next) {
 
   if (!user.isModified("password")) return next();
 
-  const salt = await bcrypt.genSalt(config.get<number>("saltWorkFactor"));
+  const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(user.password, salt);
 
   user.password = hash;

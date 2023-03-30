@@ -37,6 +37,7 @@ export const authUser = async (input: UserLoginInput) => {
   const { email, password } = input;
   try {
     const user = await User.findOne({ email });
+    console.log("here - 1 " + user);
     if (user && (await user.comparePassword(password))) {
       const token = signJwt(user._id);
 
@@ -56,6 +57,8 @@ export const authUser = async (input: UserLoginInput) => {
         ...omit(user.toJSON(), "password"),
         token,
       };
+    } else {
+      throw new Error("Find user failed");
     }
   } catch (e: any) {
     throw new Error(e);

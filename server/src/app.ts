@@ -1,5 +1,4 @@
 import express from "express";
-import config from "config";
 import connectDB from "./utils/connect";
 import logger from "./utils/logger";
 import dotenv from "dotenv";
@@ -21,7 +20,7 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 
-const port = config.get<number>("port");
+const port = process.env.PORT || 4001;
 const server = http.createServer(app);
 
 server.listen(port, async () => {
