@@ -11,7 +11,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
     <div className="bg-white shadow-item col-span-3 h-[400px]   rounded-lg flex flex-col">
       <div className="w-full h-60 relative flex-shrink-0">
         <img
-          src={`${process.env.NEXT_PUBLIC_ENDPOINT}${product.image}`}
+          src={product.image}
           alt=""
           className="rounded-t-lg h-full w-full object-cover"
         />
@@ -23,7 +23,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </div>
         <div className="w-full flex justify-between  px-3">
           <div>Description</div>
-          <div>some desc</div>
+          <div>{product.description}</div>
         </div>
         <div className="w-full flex justify-between  px-3">
           <div>Start Price</div>

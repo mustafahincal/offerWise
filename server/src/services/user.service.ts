@@ -38,11 +38,13 @@ export const authUser = async (input: UserLoginInput) => {
   try {
     const user = await User.findOne({ email });
 
+    if (!user) throw new Error("User not found");
+
     if (user && (await user.comparePassword(password))) {
       const token = signJwt(user._id);
 
       await redisHandler(
-        `token-user`,
+        `token-user-${user._id}`,
         JSON.stringify({
           token,
           user: {
@@ -58,25 +60,27 @@ export const authUser = async (input: UserLoginInput) => {
         token,
       };
     } else {
-      throw new Error("Find user failed");
+      throw new Error("Password failed");
     }
   } catch (e: any) {
     throw new Error(e);
   }
 };
 
-export const getUserToken = async () => {
+export const getUserToken = async (userId: string) => {
   try {
-    const token = await redisHandler("token-user");
+    const token = await redisHandler("token-user-" + userId);
     return token;
   } catch (e: any) {
     throw new Error(e.message);
   }
 };
 
-export const removeUserToken = async () => {
+export const removeUserToken = async (userId: string) => {
   try {
-    const deletedKey = await deleteRedisKey("token-user");
+    console.log(userId);
+    const deletedKey = await deleteRedisKey("token-user-" + userId);
+    console.log("hasda" + deletedKey);
     // console.log(deletedKey);
   } catch (e: any) {
     throw new Error(e.message);

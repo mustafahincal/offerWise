@@ -21,9 +21,13 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_ENDPOINT}/users/g-token`)
+      .get(
+        `${
+          process.env.NEXT_PUBLIC_BASE_ENDPOINT
+        }/users/g-token/${localStorage.getItem("user_id")}`
+      )
       .then((response) => {
-        if (response.data.success && localStorage.getItem("token")) {
+        if (response.data.success && localStorage.getItem("user_id")) {
           const token_user = JSON.parse(response.data.token_user);
           setCurrentUser(token_user.user);
           setToken(token_user.token);
@@ -87,8 +91,8 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
               email: response.data.user.email,
             })
           ); */
-
           localStorage.setItem("token", response.data.user.token);
+          localStorage.setItem("user_id", response.data.user._id);
           setCurrentUser({
             _id: response.data.user._id,
             name: response.data.user.name,
@@ -113,11 +117,16 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
     setLogged(false);
     setCurrentUser(undefined);
     // localStorage.removeItem("userInfo");
-    localStorage.removeItem("token");
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_ENDPOINT}/users/d-token`)
+      .get(
+        `${
+          process.env.NEXT_PUBLIC_BASE_ENDPOINT
+        }/users/d-token/${localStorage.getItem("user_id")}`
+      )
       .then((response) => {
         //console.log(response);
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("token");
       })
       .catch((err) => {
         //console.log(err);

@@ -72,7 +72,7 @@ export const authUserHandler = async (
 
 export const getUserTokenHandler = async (req: Request, res: Response) => {
   try {
-    const token = await getUserToken();
+    const token = await getUserToken(req.params.id);
     if (token) {
       res.send({
         token_user: token,
@@ -89,7 +89,7 @@ export const getUserTokenHandler = async (req: Request, res: Response) => {
 
 export const removeUserTokenHandle = async (req: Request, res: Response) => {
   try {
-    await removeUserToken();
+    await removeUserToken(req.params.id);
     res.send({ success: true, message: "Token removed successfully" });
   } catch (e: any) {
     res.send({ message: e.message, success: false });

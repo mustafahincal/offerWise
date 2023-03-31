@@ -94,7 +94,7 @@ const Product = () => {
           <h1 className="font-extrabold text-2xl mb-5">Product Info</h1>
           <div className="w-full h-1/2 relative flex-shrink-0">
             <img
-              src={`${process.env.NEXT_PUBLIC_ENDPOINT}${product?.image}`}
+              src={product?.image}
               alt=""
               className="rounded-t-lg h-full w-full object-cover"
             />
