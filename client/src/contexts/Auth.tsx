@@ -47,34 +47,19 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
       router.push("/login"); */
   }, []);
 
-  /* const getUserToken = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/api/users/token");
-      if (response.data.success) {
-        const parsedTokenUser = JSON.parse(response.data.token);
-        setCurrentUser(parsedTokenUser.user);
-        setLogged(true);
-      } else {
-        console.log(response.data.message);
-        router.push("/login");
-      }
-    } catch (err: any) {
-      console.log(err);
-    }
-  }; */
-
   const register = (userForRegister: RegisterRequest) => {
     fetchRegister(userForRegister)
       .then((response: any) => {
         if (response.data.success) {
-          toast.success("Register Successsful");
+          toast.success("Registeration successfull");
           router.push("/login");
+        } else {
+          toast.error("Registeration failed");
         }
       })
       .catch((err: any) => {
-        console.log(err);
-        toast.error("Failed To Register");
-        router.push("/register");
+        toast.error("Cannot access server");
+        router.push("/signup");
       });
   };
   const login = (userForLogin: LoginRequest) => {
@@ -108,7 +93,8 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
         }
       })
       .catch((err: any) => {
-        toast.error(err.response.data.message);
+        if (err.response?.data.message) toast.error(err.response.data.message);
+        else toast.error("Cannot access server");
         setLoading(false);
       });
   };
