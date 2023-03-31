@@ -42,9 +42,7 @@ const Product = () => {
       getProduct(router.query.id as string)
         .then((response) => {
           if (response.data.success) {
-            console.log(response.data);
             setProduct(response.data.product);
-            console.log(currentUser);
           } else {
             toast.error(response.data.message);
           }
