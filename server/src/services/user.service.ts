@@ -46,7 +46,7 @@ export const authUser = async (input: UserLoginInput) => {
         JSON.stringify({
           token,
           user: {
-            id: user._id,
+            _id: user._id,
             email: user.email,
             name: user.name,
           },

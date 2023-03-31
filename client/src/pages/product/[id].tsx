@@ -42,7 +42,9 @@ const Product = () => {
       getProduct(router.query.id as string)
         .then((response) => {
           if (response.data.success) {
+            console.log(response.data);
             setProduct(response.data.product);
+            console.log(currentUser);
           } else {
             toast.error(response.data.message);
           }
@@ -130,9 +132,9 @@ const Product = () => {
       <div className="shadow-item w-1/3 self-start text-right px-8 py-7 rounded-md">
         <h1 className="font-extrabold text-2xl  mb-5">Offer</h1>
 
-        {product?.user && product.user._id === currentUser?._id ? (
+        {product?.user?._id === currentUser?._id ? (
           <div className="px-5 py-3 bg-crimson  text-md text-white  text-center mb-5 ">
-            Bu ürüne {product.lastOffer}₺ teklif verdiniz.
+            Bu ürüne {product?.lastOffer}₺ teklif verdiniz.
           </div>
         ) : null}
 
