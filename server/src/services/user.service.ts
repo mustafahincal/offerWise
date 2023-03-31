@@ -2,7 +2,7 @@ import { signJwt } from "./../utils/jwt";
 import { omit } from "lodash";
 import { Document } from "mongoose";
 import User, { UserInput, UserLoginInput } from "../models/user.model";
-import { redisHandler } from "../utils/redis";
+import { deleteRedisKey, redisHandler } from "../utils/redis";
 
 export const getAllUsers = async () => {
   try {
@@ -37,12 +37,12 @@ export const authUser = async (input: UserLoginInput) => {
   const { email, password } = input;
   try {
     const user = await User.findOne({ email });
-    console.log("here - 1 " + user);
+
     if (user && (await user.comparePassword(password))) {
       const token = signJwt(user._id);
 
       await redisHandler(
-        "token-user",
+        `token-user`,
         JSON.stringify({
           token,
           user: {
@@ -69,6 +69,15 @@ export const getUserToken = async () => {
   try {
     const token = await redisHandler("token-user");
     return token;
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
+export const removeUserToken = async () => {
+  try {
+    const deletedKey = await deleteRedisKey("token-user");
+    // console.log(deletedKey);
   } catch (e: any) {
     throw new Error(e.message);
   }

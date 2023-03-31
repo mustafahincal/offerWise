@@ -8,6 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -19,8 +20,8 @@ instance.interceptors.response.use(
   (error) => {
     if (error?.response?.status === 401) {
       console.log("Please login again.");
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+      //localStorage.removeItem("token");
+      //window.location.href = "/login";
     }
     try {
       //console.log(error?.response?.data?.message);

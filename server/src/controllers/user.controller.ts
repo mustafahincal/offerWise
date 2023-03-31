@@ -7,6 +7,7 @@ import {
   getAllUsers,
   getUser,
   getUserToken,
+  removeUserToken,
 } from "../services/user.service";
 import logger from "../utils/logger";
 
@@ -74,13 +75,22 @@ export const getUserTokenHandler = async (req: Request, res: Response) => {
     const token = await getUserToken();
     if (token) {
       res.send({
-        token,
+        token_user: token,
         success: true,
         message: "Token fetched successfully",
       });
     } else {
       throw new Error("Failed to fetch token");
     }
+  } catch (e: any) {
+    res.send({ message: e.message, success: false });
+  }
+};
+
+export const removeUserTokenHandle = async (req: Request, res: Response) => {
+  try {
+    await removeUserToken();
+    res.send({ success: true, message: "Token removed successfully" });
   } catch (e: any) {
     res.send({ message: e.message, success: false });
   }

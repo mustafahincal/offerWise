@@ -22,3 +22,12 @@ export const redisHandler = (
     });
   });
 };
+
+export const deleteRedisKey = (key: string) => {
+  return new Promise((resolve, reject) => {
+    client.del(key, (err: any, data: any) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};

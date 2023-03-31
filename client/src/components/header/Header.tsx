@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <div className="h-16 py-6 flex flex-shrink-0 justify-between items-center px-14 shadow-item bg-black text-white">
       <Link href={logged ? "/" : "/login"} className="font-bold text-2xl">
-        Karaca
+        Kartaca
       </Link>
 
       {logged ? (
@@ -28,7 +28,7 @@ const Header = () => {
               onClick={() => setVisible(!visible)}
               className="flex items-center"
             >
-              <div className="hidden sm:block">{currentUser.name}</div>
+              <div className="hidden sm:block">{currentUser?.name}</div>
             </span>
           </button>
           <div

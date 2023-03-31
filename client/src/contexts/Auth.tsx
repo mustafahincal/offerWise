@@ -16,15 +16,31 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
   const [logged, setLogged] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
+  const [token, setToken] = useState<string | undefined>();
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_ENDPOINT}/users/g-token`)
+      .then((response) => {
+        if (response.data.success && localStorage.getItem("token")) {
+          const token_user = JSON.parse(response.data.token_user);
+          setCurrentUser(token_user.user);
+          setToken(token_user.token);
+          setLogged(true);
+        } else {
+          router.push("/login");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    /* if (localStorage.getItem("token")) {
       setCurrentUser(JSON.parse(localStorage.getItem("userInfo") || "{}"));
       setLogged(true);
     } else {
-      router.push("/login");
-    }
+      router.push("/login"); */
   }, []);
 
   /* const getUserToken = async () => {
@@ -62,7 +78,7 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
     fetchLogin(userForLogin)
       .then((response: any) => {
         if (response.data.success) {
-          localStorage.setItem("token", response.data.user.token);
+          /* 
           localStorage.setItem(
             "userInfo",
             JSON.stringify({
@@ -70,7 +86,9 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
               name: response.data.user.name,
               email: response.data.user.email,
             })
-          );
+          ); */
+
+          localStorage.setItem("token", response.data.user.token);
           setCurrentUser({
             _id: response.data.user._id,
             name: response.data.user.name,
@@ -94,8 +112,16 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
   const logout = () => {
     setLogged(false);
     setCurrentUser(undefined);
-    localStorage.removeItem("userInfo");
+    // localStorage.removeItem("userInfo");
     localStorage.removeItem("token");
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_ENDPOINT}/users/d-token`)
+      .then((response) => {
+        //console.log(response);
+      })
+      .catch((err) => {
+        //console.log(err);
+      });
     router.push("/login");
   };
 
