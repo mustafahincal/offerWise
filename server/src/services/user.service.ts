@@ -78,9 +78,7 @@ export const getUserToken = async (userId: string) => {
 
 export const removeUserToken = async (userId: string) => {
   try {
-    console.log(userId);
     const deletedKey = await deleteRedisKey("token-user-" + userId);
-    console.log("hasda" + deletedKey);
     // console.log(deletedKey);
   } catch (e: any) {
     throw new Error(e.message);
