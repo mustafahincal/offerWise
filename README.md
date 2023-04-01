@@ -2,12 +2,10 @@
 
 ## **Project Description (Proje Açıklaması)**
 
-```
 - The user can be registered and logged in from the member registration screen. (Kullanıcı üye kayıt ekranından kayıt olunup, giriş yapılabilir.)
 - Logged in users will see 3 products on the home page. (Oturum açan kullanıcılar ana sayfa üzerinde 3 adet ürün görecektir.)
 - Products can be offered live. (Ürünlere canlı olarak teklif verilebilir.)
 - User can see another user's offer without refreshing the page. (Kullanıcı bir başka kullanıcın yaptığı teklifi sayfa yenilemeden görebilir)
-```
 
 ## **Registration Key**
 
