@@ -20,7 +20,7 @@ export const getAllUsersHandler = async (req: Request, res: Response) => {
       throw new Error("Failed to Fetch Users");
     }
   } catch (e: any) {
-    res.status(400).send({ message: e.message, success: false });
+    res.send({ message: e.message, success: false });
   }
 };
 
@@ -33,7 +33,7 @@ export const getUserHandler = async (req: Request, res: Response) => {
       throw new Error("Failed to Fetch User");
     }
   } catch (e: any) {
-    res.status(400).send({ message: e.message, success: false });
+    res.send({ message: e.message, success: false });
   }
 };
 

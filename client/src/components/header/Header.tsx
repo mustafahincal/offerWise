@@ -1,5 +1,4 @@
 import { useAuthContext } from "@/contexts/Auth";
-import useHandleOutsideClick from "@/hooks/useOutsideClick";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -11,9 +10,6 @@ const Header = () => {
     setVisible(false);
     logout();
   };
-
-  /* const ref = React.useRef();
-  useHandleOutsideClick(ref, () => setVisible(false)); */
 
   return (
     <div className="h-16 py-6 flex flex-shrink-0 justify-between items-center px-14 shadow-item bg-black text-white">

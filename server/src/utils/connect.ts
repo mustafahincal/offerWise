@@ -5,8 +5,7 @@ import Product from "../models/product.model";
 dotenv.config();
 
 const connectDB = async () => {
-  // const DB_URI = process.env.DB_URI || "mongodb://mongodb:27017/kartaca-test";
-  const DB_URI = "mongodb://mongodb:27017/kartaca-test";
+  const DB_URI = process.env.DB_URI || "mongodb://mongodb:27017/kartaca";
 
   try {
     mongoose
