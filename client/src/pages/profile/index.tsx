@@ -16,10 +16,10 @@ const Profile = () => {
       </div>
       <div className="text-center bg-white">
         <div className="w-full  border-2 py-3 px-20 font-bold">
-          <div>{currentUser.name}</div>
+          <div>{currentUser?.name}</div>
         </div>
         <div className="w-full border-2  py-3 px-20 font-bold">
-          <div>{currentUser.email}</div>
+          <div>{currentUser?.email}</div>
         </div>
       </div>
     </div>

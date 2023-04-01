@@ -19,8 +19,11 @@ app.use(express.json());
 
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/test", (req, res) => {
+  res.send("test basarili");
+});
 
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 4000;
 const server = http.createServer(app);
 
 server.listen(port, async () => {
@@ -30,7 +33,7 @@ server.listen(port, async () => {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL,
   },
 });
 

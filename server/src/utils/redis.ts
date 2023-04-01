@@ -1,6 +1,12 @@
+import dotenv from "dotenv";
 const redis = require("redis");
+dotenv.config();
 
-const client = redis.createClient();
+//const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = redis.createClient({
+  host: "redis",
+  port: 6379,
+});
 
 const DEFAULT_EXPIRATION = 3600;
 

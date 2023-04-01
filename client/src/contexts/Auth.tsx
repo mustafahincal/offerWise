@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
       })
       .catch((err) => {
         console.log(err);
+        router.push("/login");
       });
 
     /* if (localStorage.getItem("token")) {
