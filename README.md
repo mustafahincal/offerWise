@@ -50,10 +50,19 @@ Go to the project directory
   cd kartaca-task
 ```
 
-Docker
+Lets Docker up
 
 ```bash
   docker-compose up
+```
+
+You will see the project running on localhost:3000. Ports;
+
+```bash
+  client => 3000
+  server => 4000
+  mongodb => 27017
+  redis => 6379
 ```
 
 ## **Features**

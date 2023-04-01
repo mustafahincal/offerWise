@@ -10,7 +10,7 @@ const Footer = () => {
       </div>
       <div>
         <p>
-          © 2022 - 2023 <span className="ml-1 font-bold">Karaca</span>
+          © 2022 - 2023 <span className="ml-1 font-bold">Kartaca</span>
         </p>
       </div>
     </div>
