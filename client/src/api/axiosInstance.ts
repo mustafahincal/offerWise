@@ -19,7 +19,7 @@ instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error?.response?.status === 401) {
-      console.log("Please login again.");
+      //console.log("Please login again.");
       //localStorage.removeItem("token");
       //window.location.href = "/login";
     }
