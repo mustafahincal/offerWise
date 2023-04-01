@@ -32,6 +32,7 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
           setCurrentUser(token_user.user);
           setToken(token_user.token);
           setLogged(true);
+          router.push("/");
         } else {
           router.push("/login");
         }
@@ -52,15 +53,15 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
     fetchRegister(userForRegister)
       .then((response: any) => {
         if (response.data.success) {
-          toast.success("Registeration successfull");
           router.push("/login");
+          toast.success("Registeration successfull");
         } else {
           toast.error("Registeration failed");
         }
       })
       .catch((err: any) => {
-        toast.error("Cannot access server");
         router.push("/signup");
+        toast.error("Cannot access server");
       });
   };
   const login = (userForLogin: LoginRequest) => {
@@ -86,8 +87,8 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
           });
           setLogged(true);
           setLoading(false);
-          toast.success("Login Successsful");
           router.push("/");
+          toast.success("Login Successsful");
         } else {
           toast.error(response.data.message);
           setLoading(false);
@@ -114,11 +115,11 @@ export const AuthProvider: React.FC<props> = ({ children }) => {
         //console.log(response);
         localStorage.removeItem("user_id");
         localStorage.removeItem("token");
+        router.push("/login");
       })
       .catch((err) => {
         //console.log(err);
       });
-    router.push("/login");
   };
 
   const values: any = {
