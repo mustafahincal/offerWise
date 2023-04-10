@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   nodejs:
-    container_name: kartaca-server
+    container_name: app-server
     build: ./server
     ports:
       - "4000:4000"
@@ -9,19 +9,19 @@ services:
       - mongodb
       - redis
   nextjs:
-    container_name: kartaca-client
+    container_name: app-client
     build: ./client
     ports:
       - "3000:3000"
   mongodb:
-    container_name: kartaca-db
+    container_name: app-db
     image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
       - data:/data/db
   redis:
-    container_name: kartaca-redis
+    container_name: app-redis
     image: redis
     ports:
       - "6379:6379"

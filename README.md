@@ -1,4 +1,4 @@
-# Kartaca Task
+# E-Commerce App
 
 ## **Project Description (Proje Açıklaması)**
 
@@ -6,10 +6,6 @@
 - Logged in users will see 3 products on the home page. (Oturum açan kullanıcılar ana sayfa üzerinde 3 adet ürün görecektir.)
 - Products can be offered live. (Ürünlere canlı olarak teklif verilebilir.)
 - User can see another user's offer without refreshing the page. (Kullanıcı bir başka kullanıcın yaptığı teklifi sayfa yenilemeden görebilir)
-
-## **Registration Key**
-
-_43aa19c7c2dde5de2dcb486d18a1ae31a53bed49ff1f916cac100e1ea06054cc_
 
 ## **Technologies used in the project (Projede kullanılan teknolojiler)**
 
