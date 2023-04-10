@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+/access-task
+
 # next.js
 /.next/
 /out/
