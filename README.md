@@ -37,13 +37,13 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/mustafahincal/kartaca-task.git
+  git clone https://github.com/mustafahincal/offer-wise.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd kartaca-task
+  cd offer-wise
 ```
 
 Lets Docker up
